@@ -162,8 +162,9 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ullamcorper tellus sed ante aliquam tempus. Etiam porttitor urna feugiat nibh elementum, et tempor dolor mattis. Donec accumsan enim augue, a vulputate nisi sodales sit amet. Proin bibendum ex eget mauris cursus euismod nec et nibh. Maecenas ac gravida ante, nec cursus dui. Vivamus purus nibh, placerat ac purus eget, sagittis vestibulum metus. Sed vestibulum bibendum lectus gravida commodo. Pellentesque auctor leo vitae sagittis suscipit.
-          </p>
+  Character animation aims to generate realistic, pose-controllable videos from a static image. Its core challenge lies not only in motion control but in maintaining strict semantic consistency: the generated character's identity, appearance, and style must remain strictly coherent with the reference across all frames. While recent diffusion-based approaches excel at this fidelity, their iterative denoising process creates a critical efficiency bottleneck, hindering real-time applications. The distillation methods introduce a fundamental conflict: rapid, few-step generation often degrades the fine-grained details.
+  To resolve this tension, we introduce <strong>AnimateTurbo</strong>, an efficient framework that achieves high-quality character animation without sacrificing fidelity. AnimateTurbo introduces two key innovations: (1) <strong>ReferenceLCM</strong>, a lightweight distillation architecture that establishes a high-speed generation baseline. (2) To counteract the semantic degradation inherent in distillation, we introduce <strong>Adversarial Mutual Information (AMI)</strong>, recasting adversarial learning as a proxy for MI maximization. Extensive experiments demonstrate that AnimateTurbo matches or exceeds state-of-the-art methods in visual quality while requiring only <strong>2–4</strong> inference steps, achieving a 10× acceleration and enabling real-time, high-fidelity character animation.
+</p>
         </div>
       </div>
     </div>
