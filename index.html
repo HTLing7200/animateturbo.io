@@ -272,11 +272,54 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  // 这个函数负责处理所有带有 data-sync-group 属性的视频
+
+  /**
+   * 功能一：动态设置视频容器的高宽比，使其与参考图片一致
+   */
+  const setupDynamicAspectRatio = () => {
+    const refImage = document.getElementById('reference-image');
+    const videoContainers = document.querySelectorAll('.video-container');
+
+    // 如果找不到必要的元素，则退出
+    if (!refImage || videoContainers.length === 0) {
+      console.warn('Reference image or video containers not found for dynamic aspect ratio.');
+      return;
+    }
+
+    // 定义应用比例的函数
+    const applyRatio = () => {
+      // 获取图片的原始（真实）尺寸
+      const naturalWidth = refImage.naturalWidth;
+      const naturalHeight = refImage.naturalHeight;
+
+      // 确保尺寸有效
+      if (naturalWidth > 0 && naturalHeight > 0) {
+        // 计算高宽比
+        const aspectRatio = naturalWidth / naturalHeight;
+        
+        // 将计算出的高宽比应用到所有视频容器上
+        videoContainers.forEach(container => {
+          container.style.aspectRatio = aspectRatio;
+        });
+      }
+    };
+
+    // 检查图片是否已经加载完成（例如来自浏览器缓存）
+    if (refImage.complete) {
+      applyRatio();
+    } else {
+      // 如果没有，则等待图片加载完成后再执行
+      refImage.addEventListener('load', applyRatio);
+    }
+  };
+
+
+  /**
+   * 功能二：同步视频播放并设置播放速度
+   */
   const setupVideoSync = () => {
     const syncGroups = {};
 
-    // 1. 找到所有需要同步的视频，并按组名分类
     document.querySelectorAll('video[data-sync-group]').forEach(video => {
       const groupName = video.dataset.syncGroup;
       if (!syncGroups[groupName]) {
@@ -285,31 +328,25 @@ document.addEventListener('DOMContentLoaded', () => {
       syncGroups[groupName].push(video);
     });
 
-    // 2. 遍历每一个同步组，为它们设置规则
     for (const groupName in syncGroups) {
       const videosInGroup = syncGroups[groupName];
-      if (videosInGroup.length < 2) continue; // 如果组内少于2个视频，则无需同步
+      if (videosInGroup.length < 2) continue;
 
-      const masterVideo = videosInGroup[0]; // 将每组的第一个视频作为“主控制器”
-      const slaveVideos = videosInGroup.slice(1); // 其余的作为“跟随者”
+      const masterVideo = videosInGroup[0];
+      const slaveVideos = videosInGroup.slice(1);
 
-      // 3. 设置组内所有视频的播放速度为 1/3
       videosInGroup.forEach(video => {
         video.playbackRate = 1 / 3;
       });
 
-      // 4. 为主控制器视频添加事件监听，以同步所有跟随者
       masterVideo.addEventListener('play', () => {
         slaveVideos.forEach(video => {
-          video.currentTime = masterVideo.currentTime; // 精准同步时间
-          video.play();
+          if (video.paused) video.play();
         });
       });
-
       masterVideo.addEventListener('pause', () => {
         slaveVideos.forEach(video => video.pause());
       });
-
       masterVideo.addEventListener('seeking', () => {
         slaveVideos.forEach(video => {
           video.currentTime = masterVideo.currentTime;
@@ -318,7 +355,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // 运行设置函数
+  // 运行所有设置函数
+  setupDynamicAspectRatio();
   setupVideoSync();
 });
 </script>
