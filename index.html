@@ -1,6 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <head>
+  <style>
+    .synced-media-container {
+      /* 使用 Flexbox 来确保内容居中，这对于显示黑边很重要 */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* 背景色决定了视频黑边的颜色 */
+      background-color: #f5f5f5; /* Bulma的浅灰色背景，可改为 black */
+    }
+    .synced-media-content {
+      width: 100%;
+      height: 100%;
+      /*
+        关键属性！
+        'contain': 完整显示内容，保持其比例，空白部分用背景色填充（推荐）
+        'cover':   填满容器，保持其比例，但会裁剪掉超出部分
+      */
+      object-fit: contain;
+    }
+  </style>
+  </head>
   <meta charset="utf-8">
   <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
   <!-- Replace the content tag with appropriate information -->
@@ -201,15 +223,15 @@
 
       <div class="column has-text-centered">
         <h3 class="title is-4">Reference</h3>
-        <figure> <img src="static/images/woman3.png" alt="Reference image"/>
+        <figure class="image synced-media-container" style="aspect-ratio: 768 / 1024;">
+          <img class="synced-media-content" src="static/images/woman3.png" alt="Reference image"/>
         </figure>
-<!--         <figure class="image is-4by3"> <img src="static/images/woman3.png" alt="Reference image"/>
-        </figure> -->
       </div>
 
       <div class="column has-text-centered">
         <h3 class="title is-4">Teacher Model (40 NFE)</h3>
-        <figure class="image is-4by3"> <video class="has-ratio" autoplay loop muted playsinline data-sync-group="result-sync">
+        <figure class="image synced-media-container" style="aspect-ratio: 768 / 1024;">
+          <video class="synced-media-content has-ratio" autoplay loop muted playsinline data-sync-group="result-sync">
             <source src="static/images/87_res.mp4" type="video/mp4">
           </video>
         </figure>
@@ -217,7 +239,8 @@
 
       <div class="column has-text-centered">
         <h3 class="title is-4">AnimateTurbo (2 NFE)</h3>
-        <figure class="image is-4by3"> <video class="has-ratio" autoplay loop muted playsinline data-sync-group="result-sync">
+        <figure class="image synced-media-container" style="aspect-ratio: 768 / 1024;">
+          <video class="synced-media-content has-ratio" autoplay loop muted playsinline data-sync-group="result-sync">
             <source src="static/images/87_res_s_2.mp4" type="video/mp4">
           </video>
         </figure>
