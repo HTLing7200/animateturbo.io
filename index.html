@@ -201,15 +201,13 @@
 
       <div class="column has-text-centered">
         <h3 class="title is-4">Reference</h3>
-        <figure class="image is-1by1">
-          <img src="static/images/woman3.png" alt="Reference image"/>
+        <figure class="image is-4by3"> <img src="static/images/woman3.png" alt="Reference image"/>
         </figure>
       </div>
 
       <div class="column has-text-centered">
         <h3 class="title is-4">Teacher Model (40 NFE)</h3>
-        <figure class="image is-1by1">
-          <video class="has-ratio" autoplay loop muted playsinline>
+        <figure class="image is-4by3"> <video class="has-ratio" autoplay loop muted playsinline data-sync-group="result-sync">
             <source src="static/images/87_res.mp4" type="video/mp4">
           </video>
         </figure>
@@ -217,8 +215,7 @@
 
       <div class="column has-text-centered">
         <h3 class="title is-4">AnimateTurbo (2 NFE)</h3>
-        <figure class="image is-1by1">
-          <video class="has-ratio" autoplay loop muted playsinline>
+        <figure class="image is-4by3"> <video class="has-ratio" autoplay loop muted playsinline data-sync-group="result-sync">
             <source src="static/images/87_res_s_2.mp4" type="video/mp4">
           </video>
         </figure>
@@ -227,7 +224,6 @@
     </div>
   </div>
 </section>
-
 
 
   
@@ -249,11 +245,64 @@
   </div>
 </footer>
 
-<!-- Statcounter tracking code -->
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // 这个函数负责处理所有带有 data-sync-group 属性的视频
+  const setupVideoSync = () => {
+    const syncGroups = {};
+
+    // 1. 找到所有需要同步的视频，并按组名分类
+    document.querySelectorAll('video[data-sync-group]').forEach(video => {
+      const groupName = video.dataset.syncGroup;
+      if (!syncGroups[groupName]) {
+        syncGroups[groupName] = [];
+      }
+      syncGroups[groupName].push(video);
+    });
+
+    // 2. 遍历每一个同步组，为它们设置规则
+    for (const groupName in syncGroups) {
+      const videosInGroup = syncGroups[groupName];
+      if (videosInGroup.length < 2) continue; // 如果组内少于2个视频，则无需同步
+
+      const masterVideo = videosInGroup[0]; // 将每组的第一个视频作为“主控制器”
+      const slaveVideos = videosInGroup.slice(1); // 其余的作为“跟随者”
+
+      // 3. 设置组内所有视频的播放速度为 1/3
+      videosInGroup.forEach(video => {
+        video.playbackRate = 1 / 3;
+      });
+
+      // 4. 为主控制器视频添加事件监听，以同步所有跟随者
+      masterVideo.addEventListener('play', () => {
+        slaveVideos.forEach(video => {
+          video.currentTime = masterVideo.currentTime; // 精准同步时间
+          video.play();
+        });
+      });
+
+      masterVideo.addEventListener('pause', () => {
+        slaveVideos.forEach(video => video.pause());
+      });
+
+      masterVideo.addEventListener('seeking', () => {
+        slaveVideos.forEach(video => {
+          video.currentTime = masterVideo.currentTime;
+        });
+      });
+    }
+  };
+
+  // 运行设置函数
+  setupVideoSync();
+});
+</script>
+</body>
+</html>
+
+
   
-<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
-
-    <!-- End of Statcounter Code -->
-
   </body>
   </html>
