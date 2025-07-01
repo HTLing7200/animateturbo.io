@@ -164,15 +164,16 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-  Character animation aims to generate realistic, pose-controllable videos from a static image. Its core challenge lies not only in motion control but in maintaining strict semantic consistency: the generated character's identity, appearance, and style must remain strictly coherent with the reference across all frames. While recent diffusion-based approaches excel at this fidelity, their iterative denoising process creates a critical efficiency bottleneck, hindering real-time applications. The distillation methods introduce a fundamental conflict: rapid, few-step generation often degrades the fine-grained details.
-  To resolve this tension, we introduce <strong>AnimateTurbo</strong>, an efficient framework that achieves high-quality character animation without sacrificing fidelity. AnimateTurbo introduces two key innovations: (1) <strong>ReferenceLCM</strong>, a lightweight distillation architecture that establishes a high-speed generation baseline. (2) To counteract the semantic degradation inherent in distillation, we introduce <strong>Adversarial Mutual Information (AMI)</strong>, recasting adversarial learning as a proxy for MI maximization. Extensive experiments demonstrate that AnimateTurbo matches or exceeds state-of-the-art methods in visual quality while requiring only <strong>2–4</strong> inference steps, achieving a 10× acceleration and enabling real-time, high-fidelity character animation.
-</p>
+            Character animation aims to generate realistic, pose-controllable videos from a static image. Its core challenge lies not only in motion control but in maintaining strict semantic consistency: the generated character's identity, appearance, and style must remain strictly coherent with the reference across all frames. While recent diffusion-based approaches excel at this fidelity, their iterative denoising process creates a critical efficiency bottleneck, hindering real-time applications. The distillation methods introduce a fundamental conflict: rapid, few-step generation often degrades the fine-grained details.
+            To resolve this tension, we introduce <strong>AnimateTurbo</strong>, an efficient framework that achieves high-quality character animation without sacrificing fidelity. AnimateTurbo introduces two key innovations: (1) <strong>ReferenceLCM</strong>, a lightweight distillation architecture that establishes a high-speed generation baseline. (2) To counteract the semantic degradation inherent in distillation, we introduce <strong>Adversarial Mutual Information (AMI)</strong>, recasting adversarial learning as a proxy for MI maximization. Extensive experiments demonstrate that AnimateTurbo matches or exceeds state-of-the-art methods in visual quality while requiring only <strong>2–4</strong> inference steps, achieving a 10× acceleration and enabling real-time, high-fidelity character animation.
+          </p>
         </div>
       </div>
     </div>
   </div>
 </section>
-<!-- End paper abstract -->
+---
+
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
@@ -180,49 +181,50 @@
         <h2 class="title is-3">Architecture</h2>
         <div class="publication-image">
           <img src="static/images/AnimateTurbo_Arch.jpg"
-               alt="Architecture"/>
+               alt="AnimateTurbo Architecture Diagram"/>
         </div>
         <div class="content has-text-justified">
           <p>
-<!--             这里是您的架构图的详细描述。您可以解释各个组件以及它们之间的交互。 -->
+            The <strong>AnimateTurbo</strong> framework is built on two core innovations. First, <strong>ReferenceLCM</strong>, a lightweight distilled architecture, enables rapid, few-step video generation. Second, to preserve fine-grained details and identity, we introduce <strong>Adversarial Mutual Information (AMI)</strong>, a novel training objective that maximizes the shared information between the reference image and the generated frames.
           </p>
         </div>
       </div>
     </div>
   </div>
 </section>
+---
 
 <section class="section">
   <div class="container is-max-desktop">
     <h2 class="title is-3 has-text-centered">Unseen Image Animation</h2>
-
     <div class="columns is-centered">
+
       <div class="column has-text-centered">
         <h3 class="title is-4">Reference</h3>
-        <div class="publication-image">
+        <figure class="image is-1by1">
           <img src="static/images/woman3.png" alt="Reference image"/>
-        </div>
+        </figure>
       </div>
 
       <div class="column has-text-centered">
         <h3 class="title is-4">Teacher Model (40 NFE)</h3>
-        <div class="publication-video">
-          <video width="100%" autoplay loop muted playsinline>
-            <source src="static/images/87_res.mp4" type="video/mp4">
+        <figure class="image is-1by1">
+          <video class="has-ratio" autoplay loop muted playsinline>
+            <source src="static/videos/87_res.mp4" type="video/mp4">
           </video>
-        </div>
+        </figure>
       </div>
 
       <div class="column has-text-centered">
         <h3 class="title is-4">AnimateTurbo (2 NFE)</h3>
-        <div class="publication-video">
-          <video width="100%" autoplay loop muted playsinline>
-            <source src="static/images/87_res_s_2.mp4" type="video/mp4">
+        <figure class="image is-1by1">
+          <video class="has-ratio" autoplay loop muted playsinline>
+            <source src="static/videos/87_res_s_2.mp4" type="video/mp4">
           </video>
-        </div>
+        </figure>
       </div>
-    </div>
 
+    </div>
   </div>
 </section>
 
